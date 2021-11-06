@@ -5,6 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
+  check-mergeability:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: check
+      run: |
+        bash ci-helpers/check-branch-mergeability.sh
+
   shell-lint:
     runs-on: ubuntu-20.04
     
