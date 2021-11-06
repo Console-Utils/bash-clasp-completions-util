@@ -9,25 +9,28 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - uses: actions/checkout@v2
     - name: check
       run: |
         bash ci-helpers/check-branch-mergeability.sh
 
   shell-lint:
     runs-on: ubuntu-20.04
+    needs: check-mergeability
     
     steps:
-      - uses: actions/checkout@v2
-      - name: lint
-        run: |
-          shellcheck *.sh
+    - uses: actions/checkout@v2
+    - name: lint
+      run: |
+        shellcheck *.sh
   
   markdown-lint:
     runs-on: ubuntu-20.04
+    needs: check-mergeability
     
     steps:
-      - uses: actions/checkout@v2
-      - name: lint
-        run: |
-          npm install -g markdownlint-cli
-          markdownlint *.md
+    - uses: actions/checkout@v2
+    - name: lint
+      run: |
+        npm install -g markdownlint-cli
+        markdownlint *.md
